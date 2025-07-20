@@ -1,7 +1,5 @@
-import React from "react";
 import { CategoryCard } from "./CategoryCard";
 import type { WineCategory } from "../types/wine";
-import { sharedCardStyle } from "../styles/sharedCardStyle";
 import categoriesImg from "../assets/categories.png";
 
 interface CategorySelectionProps {

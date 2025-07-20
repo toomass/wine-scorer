@@ -1,6 +1,4 @@
-import React from "react";
 import type { WineCategory } from "../types/wine";
-import { cn } from "../lib/utils";
 import { sharedCardStyle } from "../styles/sharedCardStyle";
 import { getCategoryStyle } from "../styles/wineProperties";
 

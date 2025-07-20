@@ -1,5 +1,3 @@
-import React from "react";
-import { WineCard } from "./WineCard";
 import type { Wine, ScoringCriterion } from "../types/wine";
 import { getWineStatus } from "../utils/wineUtils";
 import { getCategoryStyle } from "../styles/wineProperties";

@@ -44,8 +44,6 @@ export const wineCategories = [
   "Fortified Wine",
 ] as const;
 
-export type WineCategory = (typeof wineCategories)[number];
-
 // Sample wine data for testing and demonstration
 const sampleWineData = [
   { category: "Red Wine", realName: "Cabernet Sauvignon Reserve 2019" },
