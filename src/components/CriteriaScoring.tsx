@@ -1,9 +1,4 @@
-import { useState } from "react";
 import type { ScoringCriterion } from "../types/wine";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { isValidScore } from "../utils/wineUtils";
 
 interface CriteriaScoringProps {
   criterion: ScoringCriterion;
@@ -16,10 +11,7 @@ export function CriteriaScoring({
   currentScore,
   onScoreChange,
 }: CriteriaScoringProps) {
-  const [inputValue, setInputValue] = useState(currentScore?.toString() || "");
-
   const handleSliderChange = (value: number) => {
-    setInputValue(value.toString());
     onScoreChange(value);
   };
 
