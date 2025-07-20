@@ -1,4 +1,4 @@
-import { Wine, ScoringCriterion, WineStatus } from "../types/wine";
+import type { Wine, ScoringCriterion, WineStatus } from "../types/wine";
 
 export class WineModel implements Wine {
   public id: string;

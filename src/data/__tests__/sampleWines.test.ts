@@ -8,7 +8,7 @@ import {
   validateTastingConfig,
   alternativeCriteriaSets,
 } from "../sampleWines";
-import { TastingConfig } from "../../types/wine";
+import type { TastingConfig } from "../../types/wine";
 
 describe("sampleWines", () => {
   describe("defaultScoringCriteria", () => {

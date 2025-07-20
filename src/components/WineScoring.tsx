@@ -1,23 +1,17 @@
 import type { Wine, ScoringCriterion } from "../types/wine";
 import { CriteriaScoring } from "./CriteriaScoring";
-import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { ArrowLeft } from "lucide-react";
-import { getWineStatus, getMaxPossibleScore } from "../utils/wineUtils";
+import { getMaxPossibleScore } from "../utils/wineUtils";
 
 interface WineScoringProps {
   wine: Wine;
   criteria: ScoringCriterion[];
   onScoreUpdate: (criterionId: string, score: number) => void;
-  onBack: () => void;
 }
 
 export function WineScoring({
   wine,
   criteria,
   onScoreUpdate,
-  onBack,
 }: WineScoringProps) {
   const maxPossibleScore = getMaxPossibleScore(criteria);
   const scorePercentage =

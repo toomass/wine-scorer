@@ -63,11 +63,6 @@ function App() {
     });
   };
 
-  const handleBack = () => {
-    // For now, just reset the wine - in a full app this would navigate back to wine list
-    console.log("Back button clicked");
-  };
-
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-md mx-auto">
@@ -75,7 +70,6 @@ function App() {
           wine={wine}
           criteria={testCriteria}
           onScoreUpdate={handleScoreUpdate}
-          onBack={handleBack}
         />
       </div>
     </div>

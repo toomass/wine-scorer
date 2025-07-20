@@ -1,9 +1,8 @@
 import { useState, useCallback } from "react";
-import type { Wine, ScoringCriterion, TastingConfig } from "../types/wine";
+import type { Wine, TastingConfig } from "../types/wine";
 import { WineList } from "./WineList";
 import { WineScoring } from "./WineScoring";
 import { WineModel } from "../models/WineModel";
-import { calculateWineTotal } from "../utils/wineUtils";
 
 interface TastingSessionProps {
   config: TastingConfig;
@@ -23,11 +22,6 @@ export function TastingSession({ config }: TastingSessionProps) {
   const handleWineSelect = useCallback((wineId: string) => {
     setSelectedWineId(wineId);
     setCurrentView("scoring");
-  }, []);
-
-  const handleBackToList = useCallback(() => {
-    setCurrentView("list");
-    setSelectedWineId(null);
   }, []);
 
   const handleScoreUpdate = useCallback(
@@ -84,7 +78,6 @@ export function TastingSession({ config }: TastingSessionProps) {
             wine={selectedWine}
             criteria={config.criteria}
             onScoreUpdate={handleScoreUpdate}
-            onBack={handleBackToList}
           />
         ) : (
           <div className="text-center py-12">

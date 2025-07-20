@@ -1,5 +1,5 @@
 import { WineModel } from "../WineModel";
-import { ScoringCriterion } from "../../types/wine";
+import type { ScoringCriterion } from "../../types/wine";
 
 describe("WineModel", () => {
   const mockCriteria: ScoringCriterion[] = [

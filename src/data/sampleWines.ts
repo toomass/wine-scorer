@@ -1,4 +1,4 @@
-import { Wine, ScoringCriterion, TastingConfig } from "../types/wine";
+import type { Wine, ScoringCriterion, TastingConfig } from "../types/wine";
 import { createEmptyWine, generateAnonymousId } from "../utils/wineUtils";
 
 // Default scoring criteria for wine tasting

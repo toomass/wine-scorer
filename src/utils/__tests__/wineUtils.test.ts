@@ -10,7 +10,7 @@ import {
   validateScoringCriterion,
   createEmptyWine,
 } from "../wineUtils";
-import { Wine, ScoringCriterion } from "../../types/wine";
+import type { Wine, ScoringCriterion } from "../../types/wine";
 
 describe("wineUtils", () => {
   const mockCriteria: ScoringCriterion[] = [
