@@ -24,34 +24,46 @@ export function CriteriaScoring({
 
   return (
     <div 
-      className="criterion-section mb-4 p-3 rounded-lg"
       style={{
         background: "rgba(255,255,255,0.95)",
         border: "1px solid rgba(0,0,0,0.1)",
         color: "#000000",
+        borderRadius: "12px",
+        padding: "12px",
+        marginBottom: "16px",
+        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.2)",
+        transition: "all 0.2s ease",
+        position: "relative",
+        overflow: "hidden",
       }}
       data-criterion={criterion.id}
     >
       {/* Header with title and score */}
       <div 
-        className="flex justify-between items-center mb-2"
         style={{ 
           display: "flex", 
           justifyContent: "space-between", 
           alignItems: "center",
+          marginBottom: "8px",
           color: "#000000"
         }}
       >
         <h3 
-          className="text-base font-semibold"
-          style={{ color: "#000000" }}
+          style={{ 
+            color: "#000000",
+            fontSize: "1rem",
+            fontWeight: "600"
+          }}
         >
           {criterion.name}
         </h3>
         {/* Score display - right aligned */}
         <span 
-          className="text-base font-semibold"
-          style={{ color: "#000000" }}
+          style={{ 
+            color: "#000000 !important",
+            fontSize: "1.125rem",
+            fontWeight: "700"
+          }}
         >
           {currentScore || 0}/{criterion.maxScore}
         </span>
@@ -59,32 +71,30 @@ export function CriteriaScoring({
 
       {/* Description */}
       <p 
-        className="text-xs mb-3 leading-relaxed"
-        style={{ color: "#000000" }}
+        style={{ 
+          color: "#000000",
+          fontSize: "0.75rem",
+          marginBottom: "12px",
+          lineHeight: "1.5"
+        }}
       >
         {criterion.description}
       </p>
 
-      {/* Progress bar */}
-      <div className="mb-3">
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <div
-            className="h-2 rounded-full transition-all duration-300 bg-blue-600"
-            style={{ width: `${scorePercentage * 100}%` }}
-          />
-        </div>
-      </div>
-
       {/* Slider */}
-      <div className="mb-3">
+      <div style={{ marginBottom: "12px" }}>
         <input
           type="range"
           min="0"
           max={criterion.maxScore}
           value={currentScore || 0}
           onChange={(e) => handleSliderChange(parseInt(e.target.value))}
-          className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-200"
           style={{
+            width: "100%",
+            height: "8px",
+            borderRadius: "8px",
+            appearance: "none",
+            cursor: "pointer",
             background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${
               scorePercentage * 100
             }%, #e5e7eb ${
@@ -96,13 +106,17 @@ export function CriteriaScoring({
 
       {/* Comments Textarea */}
       {onCommentChange && (
-        <div className="mt-2 w-full">
+        <div style={{ marginTop: "8px", width: "100%" }}>
           <Textarea
             placeholder="Additional comments (optional)"
             value={currentComment}
             onChange={(e) => onCommentChange(e.target.value)}
-            className="min-h-[60px] text-sm w-full"
-            style={{ color: "#000000" }}
+            style={{ 
+              color: "#000000",
+              minHeight: "60px",
+              fontSize: "0.875rem",
+              width: "100%"
+            }}
           />
         </div>
       )}

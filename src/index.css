@@ -100,7 +100,6 @@
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
-  color: white;
 }
 
 .criterion-section:hover {
