@@ -1,4 +1,9 @@
-import type { Wine, ScoringCriterion, TastingConfig } from "../types/wine";
+import type {
+  Wine,
+  ScoringCriterion,
+  TastingConfig,
+  WineCategory,
+} from "../types/wine";
 import { createEmptyWine, generateAnonymousId } from "../utils/wineUtils";
 
 // Default scoring criteria for wine tasting
@@ -219,6 +224,123 @@ export function createWinesWithCategories(
     criteria: defaultScoringCriteria,
     sessionName,
   };
+}
+
+/**
+ * Generate sample wines organized by categories
+ */
+export function generateCategorizedSampleWines(): Wine[] {
+  const categorizedWineData = [
+    // Red Wines
+    { category: "Red Wine", realName: "Cabernet Sauvignon Reserve 2019" },
+    { category: "Red Wine", realName: "Pinot Noir Estate 2020" },
+    { category: "Red Wine", realName: "Merlot Single Vineyard 2018" },
+    { category: "Red Wine", realName: "Syrah/Shiraz 2019" },
+
+    // White Wines
+    { category: "White Wine", realName: "Chardonnay Barrel Select 2021" },
+    { category: "White Wine", realName: "Sauvignon Blanc 2022" },
+    { category: "White Wine", realName: "Riesling Late Harvest 2021" },
+    { category: "White Wine", realName: "Pinot Grigio 2022" },
+
+    // Rosé Wines
+    { category: "Rosé Wine", realName: "Provence Rosé 2022" },
+    { category: "Rosé Wine", realName: "Sangiovese Rosé 2022" },
+
+    // Sparkling Wines
+    { category: "Sparkling Wine", realName: "Brut Champagne NV" },
+    { category: "Sparkling Wine", realName: "Prosecco DOCG 2022" },
+
+    // Dessert Wines
+    { category: "Dessert Wine", realName: "Port Vintage 2018" },
+    { category: "Dessert Wine", realName: "Ice Wine 2020" },
+
+    // Fortified Wines
+    { category: "Fortified Wine", realName: "Sherry Amontillado" },
+    { category: "Fortified Wine", realName: "Madeira 10 Year" },
+  ];
+
+  return categorizedWineData.map((wineData, index) =>
+    createEmptyWine(
+      `wine-${index + 1}`,
+      generateAnonymousId(index),
+      wineData.category
+    )
+  );
+}
+
+/**
+ * Create wine categories from a list of wines
+ */
+export function createWineCategories(wines: Wine[]): WineCategory[] {
+  const categoryMap = new Map<string, Wine[]>();
+
+  // Group wines by category
+  wines.forEach((wine) => {
+    if (!categoryMap.has(wine.category)) {
+      categoryMap.set(wine.category, []);
+    }
+    categoryMap.get(wine.category)!.push(wine);
+  });
+
+  // Create WineCategory objects
+  return Array.from(categoryMap.entries()).map(
+    ([categoryName, categoryWines]) => {
+      const completedCount = categoryWines.filter(
+        (wine) => wine.isComplete
+      ).length;
+
+      return {
+        id: categoryName.toLowerCase().replace(/\s+/g, "-"),
+        name: categoryName,
+        displayName: categoryName,
+        wines: categoryWines,
+        completedCount,
+        totalCount: categoryWines.length,
+      };
+    }
+  );
+}
+
+/**
+ * Create a default tasting configuration with categories
+ */
+export function createCategorizedTastingConfig(
+  sessionName: string = "Wine Blind Tasting Session"
+): TastingConfig & { categories: WineCategory[] } {
+  const wines = generateCategorizedSampleWines();
+  const categories = createWineCategories(wines);
+
+  return {
+    wines,
+    criteria: defaultScoringCriteria,
+    sessionName,
+    categories,
+  };
+}
+
+/**
+ * Update category completion counts based on wine scores
+ */
+export function updateCategoryProgress(
+  categories: WineCategory[],
+  wines: Wine[]
+): WineCategory[] {
+  return categories.map((category) => {
+    const categoryWines = wines.filter(
+      (wine) => wine.category === category.name
+    );
+    const completedCount = categoryWines.filter(
+      (wine) => wine.isComplete
+    ).length;
+
+    return {
+      ...category,
+      wines: categoryWines,
+      completedCount,
+      totalCount: categoryWines.length,
+    };
+  });
 }
 
 /**

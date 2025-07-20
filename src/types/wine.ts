@@ -20,7 +20,21 @@ export interface TastingConfig {
   sessionName: string;
 }
 
+export interface WineCategory {
+  id: string;
+  name: string;
+  displayName: string;
+  wines: Wine[];
+  completedCount: number;
+  totalCount: number;
+}
+
 export type WineStatus = "unscored" | "partial" | "complete";
+
+export type NavigationView =
+  | "category-selection"
+  | "category-wine-list"
+  | "wine-scoring";
 
 export interface WineScoreUpdate {
   wineId: string;

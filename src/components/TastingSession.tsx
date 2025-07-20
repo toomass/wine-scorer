@@ -1,35 +1,70 @@
 import { useState, useCallback } from "react";
-import type { Wine, TastingConfig } from "../types/wine";
-import { WineList } from "./WineList";
+import type {
+  Wine,
+  TastingConfig,
+  WineCategory,
+  NavigationView,
+} from "../types/wine";
+import { CategorySelection } from "./CategorySelection";
+import { CategoryWineList } from "./CategoryWineList";
 import { WineScoring } from "./WineScoring";
 import { WineModel } from "../models/WineModel";
+import { updateCategoryProgress } from "../data/sampleWines";
 
 interface TastingSessionProps {
-  config: TastingConfig;
+  config: TastingConfig & { categories: WineCategory[] };
 }
-
-type ViewState = "list" | "scoring";
 
 export function TastingSession({ config }: TastingSessionProps) {
   const [wines, setWines] = useState<Wine[]>(config.wines);
-  const [currentView, setCurrentView] = useState<ViewState>("list");
+  const [categories, setCategories] = useState<WineCategory[]>(
+    config.categories
+  );
+  const [currentView, setCurrentView] =
+    useState<NavigationView>("category-selection");
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    null
+  );
   const [selectedWineId, setSelectedWineId] = useState<string | null>(null);
+
+  const selectedCategory = selectedCategoryId
+    ? categories.find((c) => c.id === selectedCategoryId)
+    : null;
 
   const selectedWine = selectedWineId
     ? wines.find((w) => w.id === selectedWineId)
     : null;
 
+  const categoryWines = selectedCategory
+    ? wines.filter((wine) => wine.category === selectedCategory.name)
+    : [];
+
+  const handleCategorySelect = useCallback((categoryId: string) => {
+    setSelectedCategoryId(categoryId);
+    setCurrentView("category-wine-list");
+  }, []);
+
   const handleWineSelect = useCallback((wineId: string) => {
     setSelectedWineId(wineId);
-    setCurrentView("scoring");
+    setCurrentView("wine-scoring");
+  }, []);
+
+  const handleBackToCategories = useCallback(() => {
+    setSelectedCategoryId(null);
+    setCurrentView("category-selection");
+  }, []);
+
+  const handleBackToCategoryWines = useCallback(() => {
+    setSelectedWineId(null);
+    setCurrentView("category-wine-list");
   }, []);
 
   const handleScoreUpdate = useCallback(
     (criterionId: string, score: number) => {
       if (!selectedWineId) return;
 
-      setWines((prevWines) =>
-        prevWines.map((wine) => {
+      setWines((prevWines) => {
+        const updatedWines = prevWines.map((wine) => {
           if (wine.id === selectedWineId) {
             // Create a WineModel to handle the update logic
             const wineModel = WineModel.fromWine(wine, config.criteria);
@@ -43,48 +78,64 @@ export function TastingSession({ config }: TastingSessionProps) {
             }
           }
           return wine;
-        })
-      );
+        });
+
+        // Update categories with new progress
+        setCategories((prevCategories) =>
+          updateCategoryProgress(prevCategories, updatedWines)
+        );
+
+        return updatedWines;
+      });
     },
     [selectedWineId, config.criteria]
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Session Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            {config.sessionName}
-          </h1>
-          <p className="text-gray-600">
-            {currentView === "list"
-              ? `${wines.length} wines • ${config.criteria.length} scoring criteria`
-              : selectedWine
-              ? `Scoring ${selectedWine.anonymousId} (${selectedWine.category})`
-              : "Wine Scoring"}
-          </p>
-        </div>
+    <>
+      {/* Category Selection - Full Screen */}
+      {currentView === "category-selection" && (
+        <CategorySelection
+          categories={categories}
+          onCategorySelect={handleCategorySelect}
+        />
+      )}
 
-        {/* Main Content */}
-        {currentView === "list" ? (
-          <WineList
-            wines={wines}
-            criteria={config.criteria}
-            onWineSelect={handleWineSelect}
-          />
-        ) : selectedWine ? (
-          <WineScoring
-            wine={selectedWine}
-            criteria={config.criteria}
-            onScoreUpdate={handleScoreUpdate}
-          />
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No wine selected</p>
+      {/* Other Views - Container Layout */}
+      {currentView !== "category-selection" && (
+        <div className="min-h-screen bg-gray-50">
+          <div className="container mx-auto px-4 py-8">
+            {currentView === "category-wine-list" && selectedCategory && (
+              <CategoryWineList
+                category={selectedCategory}
+                wines={categoryWines}
+                criteria={config.criteria}
+                onWineSelect={handleWineSelect}
+                onBack={handleBackToCategories}
+              />
+            )}
+
+            {currentView === "wine-scoring" && selectedWine && (
+              <WineScoring
+                wine={selectedWine}
+                criteria={config.criteria}
+                onScoreUpdate={handleScoreUpdate}
+                onBack={handleBackToCategoryWines}
+              />
+            )}
+
+            {/* Fallback for invalid states */}
+            {((currentView === "category-wine-list" && !selectedCategory) ||
+              (currentView === "wine-scoring" && !selectedWine)) && (
+              <div className="text-center py-12">
+                <p className="text-gray-500">
+                  Something went wrong. Please refresh the page.
+                </p>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
