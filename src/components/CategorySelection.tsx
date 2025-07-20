@@ -33,47 +33,43 @@ export function CategorySelection({
       <div
         style={{
           position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          pointerEvents: "none",
+          top: "30px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "calc(100vw - 20px)",
+          maxWidth: "440px",
+          height: "calc(100vh - 60px)",
           overflowY: "auto",
+          padding: "20px",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
         }}
+        className="scrollbar-hide"
       >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            pointerEvents: "auto",
-            padding: "10px",
-            paddingTop: "320px",
-            maxWidth: "440px",
-            width: "100%",
-            gap: "10px",
-            minHeight: "100vh",
-            justifyContent: "center",
+            gap: "15px",
+            minHeight: "120%",
           }}
         >
-          {categories.map((category) => (
-            <CategoryCard
-              key={category.id}
-              category={category}
-              onClick={() => onCategorySelect(category.id)}
-            />
-          ))}
-          {completedWines === totalWines && totalWines > 0 && (
-            <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200 max-w-md mx-auto shadow-lg">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">🎉 Session Complete</h3>
-              <p className="text-gray-700">All {totalWines} wines have been evaluated</p>
-            </div>
-          )}
+            {categories.map((category) => (
+              <CategoryCard
+                key={category.id}
+                category={category}
+                onClick={() => onCategorySelect(category.id)}
+              />
+            ))}
+            {completedWines === totalWines && totalWines > 0 && (
+              <div className="text-center p-8 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200 max-w-md mx-auto shadow-lg">
+                <h3 className="text-2xl font-light text-gray-900 mb-4">🎉 Session Complete</h3>
+                <p className="text-gray-700">All {totalWines} wines have been evaluated</p>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </>
-  );
-}
+      </>
+    );
+  }
