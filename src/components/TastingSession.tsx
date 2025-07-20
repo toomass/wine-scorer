@@ -10,6 +10,7 @@ import { CategoryWineList } from "./CategoryWineList";
 import { WineScoring } from "./WineScoring";
 import { WineModel } from "../models/WineModel";
 import { updateCategoryProgress } from "../data/sampleWines";
+import { BreadcrumbNav } from "./BreadcrumbNav";
 
 interface TastingSessionProps {
   config: TastingConfig & { categories: WineCategory[] };
@@ -25,7 +26,9 @@ export function TastingSession({ config }: TastingSessionProps) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     null
   );
-  const [selectedWineId, setSelectedWineId] = useState<string | null>(null);
+  const [selectedWineId, setSelectedWineId] = useState<string | null>(
+    null
+  );
 
   const selectedCategory = selectedCategoryId
     ? categories.find((c) => c.id === selectedCategoryId)
@@ -93,6 +96,11 @@ export function TastingSession({ config }: TastingSessionProps) {
 
   return (
     <>
+      <BreadcrumbNav 
+        currentView={currentView}
+        selectedCategory={selectedCategory?.name}
+        selectedWine={selectedWine?.anonymousId}
+      />
       {/* Category Selection - Full Screen */}
       {currentView === "category-selection" && (
         <CategorySelection
