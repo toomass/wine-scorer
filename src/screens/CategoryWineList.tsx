@@ -1,7 +1,7 @@
 
-import { Button } from "./ui/button";
+import { Button } from "../components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { WineList } from "./WineList";
+import { WineList } from "../components/WineList";
 import type { WineCategory, Wine, ScoringCriterion } from "../types/wine";
 import { getCategoryStyle } from "../styles/wineProperties";
 import categoriesImg from "../assets/categories.png";
@@ -54,19 +54,25 @@ export function CategoryWineList({
       />
       <div
         style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          position: "fixed",
+          top: "30px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "calc(100vw - 20px)",
+          maxWidth: "440px",
+          height: "calc(100vh - 60px)",
+          overflowY: "auto",
           padding: "20px",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
         }}
+        className="scrollbar-hide"
       >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            maxWidth: "440px",
             width: "100%",
             gap: "16px",
           }}

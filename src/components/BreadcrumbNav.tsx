@@ -1,18 +1,9 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useParams } from "react-router-dom";
 
-interface BreadcrumbNavProps {
-  currentView?: string;
-  selectedCategory?: string;
-  selectedWine?: string;
-}
-
-export function BreadcrumbNav({ 
-  currentView = "splash", 
-  selectedCategory, 
-  selectedWine 
-}: BreadcrumbNavProps) {
+export function BreadcrumbNav() {
   const location = useLocation();
+  const { categoryId, wineId } = useParams<{ categoryId?: string; wineId?: string }>();
 
   const getBreadcrumbItems = () => {
     const items = [];
@@ -23,21 +14,25 @@ export function BreadcrumbNav({
 
     items.push({ label: "home", href: "/", isCurrent: false });
 
-    if (location.pathname === "/categories" && currentView === "category-selection") {
+    if (location.pathname === "/categories") {
       items.push({ label: "categories", href: "/categories", isCurrent: true });
       return items;
     }
 
     items.push({ label: "categories", href: "/categories", isCurrent: false });
 
-    if (currentView === "category-wine-list" && selectedCategory) {
-      items.push({ label: selectedCategory.toLowerCase(), href: "#", isCurrent: true });
+    if (categoryId && !wineId) {
+      // Category wine list page
+      const categoryName = categoryId.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+      items.push({ label: categoryName, href: `/categories/${categoryId}`, isCurrent: true });
       return items;
     }
 
-    if (currentView === "wine-scoring" && selectedCategory && selectedWine) {
-      items.push({ label: selectedCategory.toLowerCase(), href: "#", isCurrent: false });
-      items.push({ label: selectedWine.toLowerCase(), href: "#", isCurrent: true });
+    if (categoryId && wineId) {
+      // Wine scoring page
+      const categoryName = categoryId.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+      items.push({ label: categoryName, href: `/categories/${categoryId}`, isCurrent: false });
+      items.push({ label: wineId, href: `/categories/${categoryId}/wines/${wineId}`, isCurrent: true });
       return items;
     }
 

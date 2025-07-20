@@ -144,6 +144,7 @@ export function createEmptyWine(
     anonymousId,
     category,
     scores: {},
+    comments: {},
     totalScore: 0,
     isComplete: false,
   };

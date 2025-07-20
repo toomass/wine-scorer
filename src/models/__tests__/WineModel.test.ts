@@ -166,6 +166,7 @@ describe("WineModel", () => {
         anonymousId: "Wine A",
         category: "Red",
         scores: { color: 15 },
+        comments: {},
         totalScore: 15,
         isComplete: false,
       };
@@ -188,6 +189,7 @@ describe("WineModel", () => {
         anonymousId: "Wine A",
         category: "Red",
         scores: { color: 15 },
+        comments: {},
         totalScore: 15,
         isComplete: false,
       });

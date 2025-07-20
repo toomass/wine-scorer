@@ -9,28 +9,40 @@ import { createEmptyWine, generateAnonymousId } from "../utils/wineUtils";
 // Default scoring criteria for wine tasting
 export const defaultScoringCriteria: ScoringCriterion[] = [
   {
-    id: "color",
-    name: "Color",
-    maxScore: 20,
-    description: "Visual appearance, clarity, and color intensity",
+    id: "appearance",
+    name: "Appearance",
+    maxScore: 15,
+    description: "Clarity, color consistency",
   },
   {
     id: "aroma",
     name: "Aroma",
-    maxScore: 30,
-    description: "Nose, bouquet, and aromatic complexity",
+    maxScore: 20,
+    description: "Complexity, intensity, faults",
   },
   {
-    id: "mouthfeel",
-    name: "Mouthfeel",
-    maxScore: 25,
-    description: "Texture, body, tannins, and overall palate sensation",
+    id: "palate",
+    name: "Palate",
+    maxScore: 20,
+    description: "Balance of acidity, sweetness, tannin, alcohol",
   },
   {
-    id: "flavor",
-    name: "Flavor",
-    maxScore: 25,
-    description: "Taste profile, balance, and flavor complexity",
+    id: "finish",
+    name: "Finish",
+    maxScore: 15,
+    description: "Length, elegance",
+  },
+  {
+    id: "typicity",
+    name: "Typicity",
+    maxScore: 15,
+    description: "Does it taste like a good example of the varietal?",
+  },
+  {
+    id: "overall",
+    name: "Overall Impression",
+    maxScore: 15,
+    description: "Structure, ageability, drinkability",
   },
 ];
 

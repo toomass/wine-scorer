@@ -1,4 +1,4 @@
-import { CategoryCard } from "./CategoryCard";
+import { CategoryCard } from "../components/CategoryCard";
 import type { WineCategory } from "../types/wine";
 import categoriesImg from "../assets/categories.png";
 

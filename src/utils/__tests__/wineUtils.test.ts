@@ -24,6 +24,7 @@ describe("wineUtils", () => {
     anonymousId: "Wine A",
     category: "Red",
     scores: { color: 15, aroma: 25 },
+    comments: {},
     totalScore: 40,
     isComplete: false,
   };
@@ -126,6 +127,7 @@ describe("wineUtils", () => {
         anonymousId: "",
         category: "",
         scores: { invalid: 10, color: 25 },
+        comments: {},
         totalScore: 35,
         isComplete: false,
       };
@@ -176,6 +178,7 @@ describe("wineUtils", () => {
         anonymousId: "Wine A",
         category: "Red",
         scores: {},
+        comments: {},
         totalScore: 0,
         isComplete: false,
       });

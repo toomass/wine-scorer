@@ -3,6 +3,7 @@ export interface Wine {
   anonymousId: string;
   category: string;
   scores: Record<string, number>;
+  comments: Record<string, string>;
   totalScore: number;
   isComplete: boolean;
 }

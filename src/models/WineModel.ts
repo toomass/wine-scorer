@@ -5,6 +5,7 @@ export class WineModel implements Wine {
   public anonymousId: string;
   public category: string;
   public scores: Record<string, number>;
+  public comments: Record<string, string>;
   public totalScore: number;
   public isComplete: boolean;
   private criteria: ScoringCriterion[];
@@ -14,13 +15,15 @@ export class WineModel implements Wine {
     anonymousId: string,
     category: string,
     criteria: ScoringCriterion[],
-    scores: Record<string, number> = {}
+    scores: Record<string, number> = {},
+    comments: Record<string, string> = {}
   ) {
     this.id = id;
     this.anonymousId = anonymousId;
     this.category = category;
     this.criteria = criteria;
     this.scores = scores;
+    this.comments = comments;
     this.totalScore = this.calculateTotal();
     this.isComplete = this.getCompletionStatus() === "complete";
   }
@@ -85,7 +88,8 @@ export class WineModel implements Wine {
       wine.anonymousId,
       wine.category,
       criteria,
-      wine.scores
+      wine.scores,
+      wine.comments
     );
   }
 
@@ -96,6 +100,7 @@ export class WineModel implements Wine {
       anonymousId: this.anonymousId,
       category: this.category,
       scores: { ...this.scores },
+      comments: { ...this.comments },
       totalScore: this.totalScore,
       isComplete: this.isComplete,
     };

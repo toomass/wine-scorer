@@ -1,6 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SplashScreen from "./components/SplashScreen";
-import { TastingSession } from "./components/TastingSession";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import SplashScreen from "./screens/SplashScreen";
+import { TastingSession } from "./screens/TastingSession";
 import { createCategorizedTastingConfig } from "./data/sampleWines";
 import { BreadcrumbNav } from "./components/BreadcrumbNav";
 
@@ -12,6 +12,9 @@ function App() {
       <Routes>
         <Route path="/" element={<SplashScreen />} />
         <Route path="/categories" element={<TastingSession config={tastingConfig} />} />
+        <Route path="/categories/:categoryId" element={<TastingSession config={tastingConfig} />} />
+        <Route path="/categories/:categoryId/wines/:wineId" element={<TastingSession config={tastingConfig} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
