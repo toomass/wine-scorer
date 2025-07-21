@@ -1,6 +1,8 @@
 import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
 import type { Wine, ScoringCriterion } from "../types/wine";
 import { CriteriaScoring } from "../components/CriteriaScoring";
+import { GlobalWineSummaryDialog } from "../components/GlobalWineSummaryDialog";
 import { Button } from "../components/ui/button";
 import { getMaxPossibleScore } from "../utils/wineUtils";
 import categoriesImg from "../assets/categories.png";
@@ -189,17 +191,15 @@ export function WineScoring({
 
       {/* Submit Button */}
       <div className="text-center mt-8 mb-8">
-        <button
-          className="submit-score-btn"
-          onClick={() => {
-            // TODO: Handle score submission
-            alert(
-              `Score submitted for ${wine.anonymousId}: ${wine.totalScore}/${maxPossibleScore} points`
-            );
+        <GlobalWineSummaryDialog
+          wine={wine}
+          criteria={criteria}
+          onSubmit={() => {
+            if (onBack) {
+              onBack();
+            }
           }}
-        >
-          Submit Score
-        </button>
+        />
       </div>
         </div>
       </>

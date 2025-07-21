@@ -1,5 +1,6 @@
 import type { ScoringCriterion } from "../types/wine";
 import { Textarea } from "./ui/textarea";
+import "./CriteriaScoring.css";
 
 interface CriteriaScoringProps {
   criterion: ScoringCriterion;
@@ -24,65 +25,27 @@ export function CriteriaScoring({
 
   return (
     <div 
-      style={{
-        background: "rgba(255,255,255,0.95)",
-        border: "1px solid rgba(0,0,0,0.1)",
-        color: "#000000",
-        borderRadius: "12px",
-        padding: "12px",
-        marginBottom: "16px",
-        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.2)",
-        transition: "all 0.2s ease",
-        position: "relative",
-        overflow: "hidden",
-      }}
+      className="criteria-card"
       data-criterion={criterion.id}
     >
       {/* Header with title and score */}
-      <div 
-        style={{ 
-          display: "flex", 
-          justifyContent: "space-between", 
-          alignItems: "center",
-          marginBottom: "8px",
-          color: "#000000"
-        }}
-      >
-        <h3 
-          style={{ 
-            color: "#000000",
-            fontSize: "1rem",
-            fontWeight: "600"
-          }}
-        >
+      <div className="criteria-header">
+        <h3 className="criteria-title">
           {criterion.name}
         </h3>
         {/* Score display - right aligned */}
-        <span 
-          style={{ 
-            color: "#000000 !important",
-            fontSize: "1.125rem",
-            fontWeight: "700"
-          }}
-        >
+        <span className="criteria-score">
           {currentScore || 0}/{criterion.maxScore}
         </span>
       </div>
 
       {/* Description */}
-      <p 
-        style={{ 
-          color: "#000000",
-          fontSize: "0.75rem",
-          marginBottom: "12px",
-          lineHeight: "1.5"
-        }}
-      >
+      <p className="criteria-description">
         {criterion.description}
       </p>
 
       {/* Slider */}
-      <div style={{ marginBottom: "12px" }}>
+      <div className="criteria-slider">
         <input
           type="range"
           min="0"
@@ -90,11 +53,6 @@ export function CriteriaScoring({
           value={currentScore || 0}
           onChange={(e) => handleSliderChange(parseInt(e.target.value))}
           style={{
-            width: "100%",
-            height: "8px",
-            borderRadius: "8px",
-            appearance: "none",
-            cursor: "pointer",
             background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${
               scorePercentage * 100
             }%, #e5e7eb ${
@@ -106,17 +64,11 @@ export function CriteriaScoring({
 
       {/* Comments Textarea */}
       {onCommentChange && (
-        <div style={{ marginTop: "8px", width: "100%" }}>
+        <div className="criteria-comments">
           <Textarea
             placeholder="Additional comments (optional)"
             value={currentComment}
             onChange={(e) => onCommentChange(e.target.value)}
-            style={{ 
-              color: "#000000",
-              minHeight: "60px",
-              fontSize: "0.875rem",
-              width: "100%"
-            }}
           />
         </div>
       )}

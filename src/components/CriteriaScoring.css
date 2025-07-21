@@ -1,0 +1,64 @@
+.criteria-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #000000;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.criteria-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px;
+  color: #000000;
+}
+
+.criteria-title {
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.criteria-score {
+  color: #000000;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.criteria-description {
+  color: #000000;
+  font-size: 0.875rem;
+  margin-bottom: 6px;
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+.criteria-slider {
+  margin-bottom: 12px;
+}
+
+.criteria-slider input[type="range"] {
+  width: 100%;
+  height: 8px;
+  border-radius: 8px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.criteria-comments {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.criteria-comments textarea {
+  color: #000000;
+  min-height: 40px;
+  font-size: 0.875rem;
+  width: 100%;
+} 
