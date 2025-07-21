@@ -1,5 +1,4 @@
 import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
 import type { Wine, ScoringCriterion } from "../types/wine";
 import { CriteriaScoring } from "../components/CriteriaScoring";
 import { GlobalWineSummaryDialog } from "../components/GlobalWineSummaryDialog";
